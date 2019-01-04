@@ -95,6 +95,12 @@ assert_false "$is executable ./forbidden_file"
 assert_true  "$is available which"
 assert_false "$is available witch"
 
+# is broken
+assert_true "$is broken cat foobar"
+assert_false "$is broken cat file"
+assert_true "$is not broken ln --help"
+assert_false "$is broken ln --help"
+
 # is empty
 assert_true  "$is empty"
 assert_true  "$is empty ''"

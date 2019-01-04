@@ -28,6 +28,8 @@ Conditions:
   is writeable PATH
   is executable PATH
   is available COMMAND
+  is installed COMMAND
+  is broken COMMAND
   is older PATH_A PATH_B
   is newer PATH_A PATH_B
   is true VALUE
@@ -65,6 +67,10 @@ EOF
         return $?
     fi
 
+    if [ "$condition" == "broken" ]; then
+        shift 1
+    fi
+
     case "$condition" in
         file)
             [ -f "$value_a" ]; return $?;;
@@ -82,6 +88,8 @@ EOF
             [ -x "$value_a" ]; return $?;;
         available|installed)
             which "$value_a"; return $?;;
+        broken)
+            eval "${@}" >/dev/null 2>&1; [ "$?" != 0 ]; return $?;;
         empty)
             [ -z "$value_a" ]; return $?;;
         number)
