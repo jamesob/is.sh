@@ -51,9 +51,9 @@ EOF
         exit
     fi
 
-    local condition="$1"
-    local value_a="$2"
-    local value_b="$3"
+    local condition="${1:-}"
+    local value_a="${2:-}"
+    local value_b="${3:-}"
 
     if [ "$condition" == "not" ]; then
         shift 1
